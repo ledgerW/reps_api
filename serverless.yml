@@ -22,11 +22,8 @@ custom:
           email: ledger.west@gmail.com
       tags:
         -
-          name: Google Civic API
-          description: Uses Google's Civic API
-        -
-          name: Maplight API
-          description: Uses Maplight API
+          name: Reps API
+          description: Using Google Civic and Maplight
     models:
       -
         name: MainResponse
@@ -69,6 +66,8 @@ functions:
           method: get
           documentation:
             summary: Gets campaign contribution info about your representatives
+            tags:
+              - Reps API
             description: >
               Retrieve campaign contribution data about your House and Senate
               representatives based on your address.
@@ -87,7 +86,9 @@ functions:
                 required: true
               -
                 name: cycle
-                description: Election cycle to get (e.g. 2020)
+                description: >
+                  Election cycle to get (e.g. 2020)\n
+                  (one of 2008, 2010, 2012, 2014, 2016, 2018 2020)
                 required: false
                 schema:
                   type: string
@@ -96,7 +97,8 @@ functions:
               -
                 name: groupby
                 description: >
-                  Group by one or more of CandidateName, CandidateParty, CandidateOffice
+                  Group by one or more of CandidateName, CandidateParty, CandidateOffice\n
+                  (2 or more as CandidateParty|CandidateOffice, etc...)
                 required: false
                 schema:
                   default: CandidateName
@@ -132,3 +134,53 @@ functions:
       - http:
           path: /state_reps
           method: get
+          documentation:
+            summary: Gets campaign contribution info for federal representatives
+            tags:
+              - Reps API
+            description: >
+              Retrieve campaign contribution data for House and Senate
+              representatives for a given state.
+            queryParams:
+              -
+                name: state
+                description: A state abbreviation (e.g. MD, NY, etc..)
+                required: true
+              -
+                name: cycle
+                description: >
+                  Election cycle to get (e.g. 2020)\n
+                  (one of 2008, 2010, 2012, 2014, 2016, 2018 2020)
+                required: false
+                schema:
+                  type: string
+                  enum: [2020, 2018, 2016, 2014, 2012, 2010, 2008]
+                  default: 2020
+              -
+                name: groupby
+                description: >
+                  "Group by one or more of CandidateName, CandidateParty, CandidateOffice\n
+                  (2 or more as CandidateParty|CandidateOffice, etc...)"
+                required: false
+                schema:
+                  default: CandidateName
+                examples:
+                  single_item:
+                    summary: group by just one category
+                    value: CandidateParty
+                  multiple_items:
+                    summary: group by 2 or more
+                    value: CandidateParty|CandidateOffice
+            methodResponses:
+              -
+                statusCode: '200'
+                responseModels:
+                  "application/json": MainResponse
+              -
+                statusCode: '400'
+                responseModels:
+                  "application/json": MainResponse
+              -
+                statusCode: '500'
+                responseModels:
+                  "application/json": MainResponse
