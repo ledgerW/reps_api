@@ -17,6 +17,15 @@ provider:
   stage: dev
   region: us-east-1
 
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        # Lambda Actions
+        - lambda:InvokeFunction
+        - sts:AssumeRole
+      Resource:
+        - "*"
+
 functions:
   my_reps:
     handler: my_reps.get
