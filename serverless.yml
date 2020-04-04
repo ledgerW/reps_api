@@ -16,6 +16,8 @@ provider:
   runtime: python3.7
   stage: dev
   region: us-east-1
+  environment:
+    GOOGLE_API_KEY: ${env:GOOGLE_API_KEY}
 
 functions:
   my_reps:
@@ -24,8 +26,6 @@ functions:
     timeout: 60
     layers:
       - {Ref: PythonRequirementsLambdaLayer}
-    environment:
-      GOOGLE_API_KEY: ${env:GOOGLE_API_KEY}
     events:
       - http:
           path: /my_reps
@@ -36,8 +36,6 @@ functions:
     timeout: 60
     layers:
       - {Ref: PythonRequirementsLambdaLayer}
-    environment:
-      GOOGLE_API_KEY: ${env:GOOGLE_API_KEY}
     events:
       - http:
           path: /state_reps
