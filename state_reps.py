@@ -9,6 +9,11 @@ import pandas as pd
 from helpers.civic import get_state_reps
 from helpers.maplight import get_candidate_record, get_all_contributions
 
+headers = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": True
+}
+
 #logger = logging.getLogger()
 #logger.setLevel(logging.INFO)
 
@@ -27,6 +32,7 @@ def get(event, context):
     except:
         return {
             'statusCode': 500,
+            'headers': headers,
             'body': 'Invalid query parameters.'
             }
 
@@ -53,11 +59,13 @@ def get(event, context):
 
         response = {
             'statusCode': 200,
+            'headers': headers,
             'body': summary.to_json(orient='records')
             }
     except Exception as e:
         response = {
             'statusCode': 400,
+            'headers': headers,
             'body': str(e)
             }
 

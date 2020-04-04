@@ -12,6 +12,11 @@ from helpers.maplight import get_candidate_record, get_all_contributions
 #logger = logging.getLogger()
 #logger.setLevel(logging.INFO)
 
+headers = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": True
+}
+
 GOOG_KEY = os.environ['GOOGLE_API_KEY']
 
 
@@ -30,6 +35,7 @@ def get(event, context):
     except:
         return {
             'statusCode': 500,
+            'headers': headers,
             'body': 'Invalid query parameters.'
             }
 
@@ -57,11 +63,13 @@ def get(event, context):
 
         response = {
             'statusCode': 200,
+            'headers': headers,
             'body': summary.to_json(orient='records')
             }
     except Exception as e:
         response = {
             'statusCode': 400,
+            'headers': headers,
             'body': str(e)
             }
 

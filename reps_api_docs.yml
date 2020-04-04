@@ -1,0 +1,77 @@
+---
+swagger: "2.0"
+info:
+  description: "A serverless api that returns a short summary of campaign contributions\
+    \ to elected representatives in the House and Senate."
+  version: "2020-04-04T22:28:57Z"
+  title: "dev-reps-api"
+  contact:
+    name: "Ledger"
+    email: "ledger.west@gmail.com"
+host: "jl6ecraie7.execute-api.us-east-1.amazonaws.com"
+basePath: "/dev"
+tags:
+- name: "Google Civic API"
+  description: "Uses Google's Civic API"
+- name: "Maplight API"
+  description: "Uses Maplight API"
+schemes:
+- "https"
+paths:
+  /my_reps:
+    get:
+      summary: "Gets campaign contribution info about your representatives"
+      description: "Retrieve campaign contribution data about your House and Senate\
+        \ representatives based on your address.\n"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "state"
+        in: "query"
+        description: "Your state abbreviation (e.g. MD, NY, etc..)"
+        required: true
+        type: "string"
+      - name: "city"
+        in: "query"
+        description: "Your city (e.g. New York)"
+        required: true
+        type: "string"
+      - name: "street"
+        in: "query"
+        description: "Your street address (e.g. 123 Main St)"
+        required: true
+        type: "string"
+      - name: "groupby"
+        in: "query"
+        description: "Group by one or more of CandidateName, CandidateParty, CandidateOffice\n"
+        required: false
+        type: "string"
+      - name: "cycle"
+        in: "query"
+        description: "Election cycle to get (e.g. 2020)"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/MainResponse"
+        400:
+          description: "400 response"
+          schema:
+            $ref: "#/definitions/MainResponse"
+        500:
+          description: "500 response"
+          schema:
+            $ref: "#/definitions/MainResponse"
+  /state_reps:
+    get:
+      responses: {}
+definitions:
+  MainResponse:
+    type: "object"
+    properties:
+      body:
+        type: "string"
+      statusCode:
+        type: "number"
