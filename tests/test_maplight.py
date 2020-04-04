@@ -19,7 +19,6 @@ class MaplightTests(unittest.TestCase):
         self.assertEqual(len(record), 4)
 
 
-    @unittest.skip("think about what to test")
     def test_candidate_record_invalid(self):
         name = 'Wrong Name'
         state = 'md'
@@ -36,7 +35,6 @@ class MaplightTests(unittest.TestCase):
         self.assertEqual(contribs.shape[1], 15)
 
 
-    @unittest.skip("think about what to test")
     def test_all_contributions_invalid(self):
         mlid = '4497'
         cycle = '1900'

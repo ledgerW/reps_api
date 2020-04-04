@@ -14,6 +14,10 @@ def get_candidate_record(name, state):
     if names.status_code != 200:
         raise Exception(names.status_code, json.loads(names.text)['error']['message'], 'Error at maplight.get_candidate_record')
 
+    if len(names.json()['data']['candidate_names']) == 0:
+        raise Exception(400, "Candidate name not found; double-check spelling", 'Error at maplight.get_candidate_record')
+
+
     for name in names.json()['data']['candidate_names']:
         if state.upper() in name['CandidateLabel']:
             name['Party'] = name['CandidateLabel'].split('(')[1][0]
@@ -36,5 +40,8 @@ def get_all_contributions(mlid, cycle):
 
     if csv_url.status_code != 200:
         raise Exception(csv_url.status_code, json.loads(csv_url.text)['error']['message'], 'Error at maplight.get_all_contributions')
+
+    if pd.read_csv(csv_url.text).shape[0] == 0:
+        raise Exception(400, 'No contributions found; double-check params', 'Error at maplight.get_all_contributions')
 
     return pd.read_csv(csv_url.text)
