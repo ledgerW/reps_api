@@ -1,0 +1,3 @@
+{
+  "queryStringParameters": {"street":"951 Fell St","city":"Baltimore","state":"md","cycle":2020,"groupby":"CandidateOffice|CandidateParty"}
+}

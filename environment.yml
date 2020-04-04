@@ -1,0 +1,11 @@
+name: civic_api
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.7
+  - requests
+  - pandas
+  - pytest
+  - coverage
+  - pip

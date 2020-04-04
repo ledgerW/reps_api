@@ -1,0 +1,44 @@
+service: reps-api
+
+plugins:
+  - serverless-offline
+  - serverless-dotenv-plugin
+  - serverless-python-requirements
+
+custom:
+  stage: ${opt:stage, self:provider.stage}
+  pythonRequirements:
+    layer:
+      name: ${self:service}
+
+provider:
+  name: aws
+  runtime: python3.7
+  stage: dev
+  region: us-east-1
+
+functions:
+  my_reps:
+    handler: my_reps.get
+    memorySize: 1024
+    timeout: 60
+    layers:
+      - {Ref: PythonRequirementsLambdaLayer}
+    environment:
+      GOOGLE_API_KEY: ${env:GOOGLE_API_KEY}
+    events:
+      - http:
+          path: /my_reps
+          method: get
+  state_reps:
+    handler: state_reps.get
+    memorySize: 1024
+    timeout: 60
+    layers:
+      - {Ref: PythonRequirementsLambdaLayer}
+    environment:
+      GOOGLE_API_KEY: ${env:GOOGLE_API_KEY}
+    events:
+      - http:
+          path: /state_reps
+          method: get
