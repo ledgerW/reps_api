@@ -16,7 +16,6 @@ GOOG_KEY = os.environ['GOOGLE_API_KEY']
 
 
 def get(event, context):
-    #logger.info(event)
     params = event['queryStringParameters']
     state = params.get('state')
     cycle = params.get('cycle', '2020')

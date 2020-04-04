@@ -16,7 +16,6 @@ GOOG_KEY = os.environ['GOOGLE_API_KEY']
 
 
 def get(event, context):
-    #logger.info(event)
     params = event['queryStringParameters']
     street = params.get('street')
     city = params.get('city')
