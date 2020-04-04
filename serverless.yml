@@ -3,6 +3,7 @@ service: reps-api
 plugins:
   - serverless-dotenv-plugin
   - serverless-python-requirements
+  - serverless-aws-documentation
   - serverless-offline
 
 custom:
@@ -10,6 +11,33 @@ custom:
   pythonRequirements:
     layer:
       name: ${self:service}
+  documentation:
+    api:
+      info:
+        version: '1'
+        title: Reps API
+        description: A serverless api that returns a short summary of campaign contributions to elected representatives in the House and Senate.
+        contact:
+          name: Ledger
+          email: ledger.west@gmail.com
+      tags:
+        -
+          name: Google Civic API
+          description: Uses Google's Civic API
+        -
+          name: Maplight API
+          description: Uses Maplight API
+    models:
+      -
+        name: MainResponse
+        contentType: "application/json"
+        schema:
+          type: object
+          properties:
+            statusCode:
+              type: number
+            body:
+              type: string
 
 provider:
   name: aws
@@ -39,6 +67,59 @@ functions:
       - http:
           path: /my_reps
           method: get
+          documentation:
+            summary: Gets campaign contribution info about your representatives
+            description: >
+              Retrieve campaign contribution data about your House and Senate
+              representatives based on your address.
+            queryParams:
+              -
+                name: street
+                description: Your street address (e.g. 123 Main St)
+                required: true
+              -
+                name: city
+                description: Your city (e.g. New York)
+                required: true
+              -
+                name: state
+                description: Your state abbreviation (e.g. MD, NY, etc..)
+                required: true
+              -
+                name: cycle
+                description: Election cycle to get (e.g. 2020)
+                required: false
+                schema:
+                  type: string
+                  enum: [2020, 2018, 2016, 2014, 2012, 2010, 2008]
+                  default: 2020
+              -
+                name: groupby
+                description: >
+                  Group by one or more of CandidateName, CandidateParty, CandidateOffice
+                required: false
+                schema:
+                  default: CandidateName
+                examples:
+                  single_item:
+                    summary: group by just one category
+                    value: CandidateParty
+                  multiple_items:
+                    summary: group by 2 or more
+                    value: CandidateParty|CandidateOffice
+            methodResponses:
+              -
+                statusCode: '200'
+                responseModels:
+                  "application/json": MainResponse
+              -
+                statusCode: '400'
+                responseModels:
+                  "application/json": MainResponse
+              -
+                statusCode: '500'
+                responseModels:
+                  "application/json": MainResponse
   state_reps:
     handler: state_reps.get
     memorySize: 1024

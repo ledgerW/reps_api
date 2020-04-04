@@ -5,6 +5,7 @@
   "main": "handler.py",
   "devDependencies": {
     "serverless": "^1.64.0",
+    "serverless-aws-documentation": "^1.1.0",
     "serverless-dotenv-plugin": "^2.3.2",
     "serverless-offline": "^5.12.1",
     "serverless-python-requirements": "^5.1.0"
