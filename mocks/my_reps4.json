@@ -1,0 +1,3 @@
+{
+  "queryStringParameters": {"street":"St","city":"city","state":"MD","cycle":2020,"groupby":"CandidateOffice|CandidateParty"}
+}

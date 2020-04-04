@@ -1,4 +1,5 @@
 import os
+import json
 import requests
 import pandas as pd
 
@@ -13,6 +14,9 @@ def get_my_reps(address):
     reps = requests.get('{}/{}'.format(CIVIC_HOST, path),
                         params=params)
 
+    if reps.status_code != 200:
+        raise Exception(reps.status_code, json.loads(reps.text)['error']['message'], 'Error at civic.get_my_reps')
+
     return pd.DataFrame(reps.json()['officials'])[['name','party','urls']]
 
 
@@ -23,5 +27,8 @@ def get_state_reps(state):
 
     reps = requests.get('{}/{}/{}'.format(CIVIC_HOST, path, division),
                         params=params)
+
+    if reps.status_code != 200:
+        raise Exception(reps.status_code, json.loads(reps.text)['error']['message'], 'Error at civic.get_state_reps')
 
     return pd.DataFrame(reps.json()['officials'])[['name','party','urls']]

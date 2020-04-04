@@ -16,8 +16,6 @@ provider:
   runtime: python3.7
   stage: dev
   region: us-east-1
-  environment:
-    GOOGLE_API_KEY: ${env:GOOGLE_API_KEY}
 
 functions:
   my_reps:

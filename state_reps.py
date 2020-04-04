@@ -9,8 +9,8 @@ import pandas as pd
 from helpers.civic import get_state_reps
 from helpers.maplight import get_candidate_record, get_all_contributions
 
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
+#logger = logging.getLogger()
+#logger.setLevel(logging.INFO)
 
 GOOG_KEY = os.environ['GOOGLE_API_KEY']
 
