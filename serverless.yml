@@ -1,16 +1,18 @@
 service: reps-api
 
 plugins:
-  - serverless-offline
   - serverless-dotenv-plugin
   - serverless-python-requirements
+  - serverless-offline
 
 custom:
   stage: ${opt:stage, self:provider.stage}
-  google_api_key: ${env:GOOGLE_API_KEY}
   pythonRequirements:
     layer:
       name: ${self:service}
+
+package:
+  individually: true
 
 provider:
   name: aws
@@ -19,13 +21,15 @@ provider:
   region: us-east-1
 
   environment:
-    GOOGLE_API_KEY: ${self:custom.google_api_key}
+    GOOGLE_API_KEY: ${env:GOOGLE_API_KEY}
 
 functions:
   my_reps:
     handler: my_reps.get
     memorySize: 1024
     timeout: 60
+    environment:
+      GOOGLE_API_KEY: ${env:GOOGLE_API_KEY}
     layers:
       - {Ref: PythonRequirementsLambdaLayer}
     events:
@@ -36,6 +40,8 @@ functions:
     handler: state_reps.get
     memorySize: 1024
     timeout: 60
+    environment:
+      GOOGLE_API_KEY: ${env:GOOGLE_API_KEY}
     layers:
       - {Ref: PythonRequirementsLambdaLayer}
     events:
