@@ -7,6 +7,7 @@ plugins:
 
 custom:
   stage: ${opt:stage, self:provider.stage}
+  google_api_key: ${env:GOOGLE_API_KEY}
   pythonRequirements:
     layer:
       name: ${self:service}
@@ -16,6 +17,9 @@ provider:
   runtime: python3.7
   stage: dev
   region: us-east-1
+
+  environment:
+    GOOGLE_API_KEY: ${self:custom.google_api_key}
 
 functions:
   my_reps:
