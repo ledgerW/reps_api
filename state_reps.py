@@ -52,11 +52,10 @@ def get(event, context):
         for mlid in ml_names.CandidateMaplightID:
             response = client.invoke(
                 FunctionName='reps-api-{}-worker'.format(STAGE),
-                InvocationType='Event',
+                InvocationType='RequestResponse',
                 Payload=json.dumps({"mlid": mlid, "cycle": cycle})
             )
-            print(response.json())
-            contrib = pd.read_json(response.json()['body'], orient='records')
+            contrib = pd.read_json(json.loads(response['Payload'].read().decode())['body'], orient='records')
             all_contrib = pd.concat([all_contrib, contrib], ignore_index=True)
 
         #all_contrib = pd.concat([get_all_contributions(mlid, cycle) for mlid in ml_names.CandidateMaplightID], ignore_index=True)

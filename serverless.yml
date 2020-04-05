@@ -8,8 +8,6 @@ plugins:
 
 custom:
   stage: ${opt:stage, self:provider.stage}
-  environment:
-    STAGE: ${self:custom.stage}
   pythonRequirements:
     layer:
       name: ${self:service}
@@ -60,6 +58,7 @@ functions:
     timeout: 300
     environment:
       GOOGLE_API_KEY: ${env:GOOGLE_API_KEY}
+      STAGE: ${self:custom.stage}
     layers:
       - {Ref: PythonRequirementsLambdaLayer}
     events:
@@ -80,11 +79,11 @@ functions:
                 required: true
               -
                 name: city
-                description: Your city (e.g. New York)
+                description: Your city (e.g. Atlanta)
                 required: true
               -
                 name: state
-                description: Your state abbreviation (e.g. MD, NY, etc..)
+                description: Your state abbreviation (e.g. MD, GA, etc..)
                 required: true
               -
                 name: cycle
@@ -132,6 +131,7 @@ functions:
     timeout: 600
     environment:
       GOOGLE_API_KEY: ${env:GOOGLE_API_KEY}
+      STAGE: ${self:custom.stage}
     layers:
       - {Ref: PythonRequirementsLambdaLayer}
     events:
@@ -148,7 +148,7 @@ functions:
             queryParams:
               -
                 name: state
-                description: A state abbreviation (e.g. MD, NY, etc..)
+                description: A state abbreviation (e.g. MD, GA, etc..)
                 required: true
               -
                 name: cycle
@@ -194,6 +194,9 @@ functions:
     handler: state_reps.worker
     memorySize: 3008
     timeout: 600
+    environment:
+      GOOGLE_API_KEY: ${env:GOOGLE_API_KEY}
+      STAGE: ${self:custom.stage}
     layers:
       - {Ref: PythonRequirementsLambdaLayer}
     events:
