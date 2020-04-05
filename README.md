@@ -3,9 +3,11 @@
 
 ### Getting Started
 **Test on AWS (already deployed)**
+
 I deployed this to a dev environment in AWS.  You can interact with the API with this [Swagger UI](https://editor.swagger.io/?_ga=2.143766844.829039718.1585956943-1736463195.1585956943) here.
 
 **Test Locally**
+
 Assumes you have `npm`, `conda`, and `git` already installed
 1. Install serverless framework: `npm install -g serverless`
 2. Clone this repo.
@@ -21,6 +23,7 @@ Assumes you have `npm`, `conda`, and `git` already installed
 
 
 **Test with Travis**
+
 A Travis file is included that will "build" the serverless app and run unit tests.
 1. Clone this repo and push a copy to your Github account.
 2. Link your repo to your [TravisCI account](https://travis-ci.com/)
@@ -30,12 +33,14 @@ A Travis file is included that will "build" the serverless app and run unit test
 
 
 **Deploy to AWS with Seed**
+
 I deployed this project using a serverless CI/CD platform, called Seed.  You can
 do the same, but it would involve creating a free Seed account and using (or creating)
 a set of AWS IAM credentials (Access ID and Secret Key).  In the interest of time I created a
 User with AdministratorAccess.
 
 1. After completing the steps from **Test Locally** above...
+2. Configure your AWS credentials for serverless as [described here](https://serverless.com/framework/docs/providers/aws/guide/credentials/)
 2. Create a copy of the project repo in your Github account.
 3. Create a [Seed account](https://seed.run/) and link to your Github (like with any CI/CD)
 4. Click "Add an App" and follow the 3 steps to link the Github repo to Seed.

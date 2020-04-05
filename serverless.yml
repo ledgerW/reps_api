@@ -55,7 +55,7 @@ functions:
   my_reps:
     handler: my_reps.get
     memorySize: 1024
-    timeout: 60
+    timeout: 300
     environment:
       GOOGLE_API_KEY: ${env:GOOGLE_API_KEY}
     layers:
@@ -127,7 +127,7 @@ functions:
   state_reps:
     handler: state_reps.get
     memorySize: 2048
-    timeout: 300
+    timeout: 600
     environment:
       GOOGLE_API_KEY: ${env:GOOGLE_API_KEY}
     layers:
