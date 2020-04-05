@@ -48,17 +48,17 @@ def get(event, context):
         ml_names = pd.DataFrame([get_candidate_record(name, state) for name in state_reps.name if name != 'VACANT'])
 
         # pulling ALL contributions for each rep from Maplight API
-        all_contrib = pd.DataFrame()
-        for mlid in ml_names.CandidateMaplightID:
-            response = client.invoke(
-                FunctionName='reps-api-{}-worker'.format(STAGE),
-                InvocationType='RequestResponse',
-                Payload=json.dumps({"mlid": mlid, "cycle": cycle})
-            )
-            contrib = pd.read_json(json.loads(response['Payload'].read().decode())['body'], orient='records')
-            all_contrib = pd.concat([all_contrib, contrib], ignore_index=True)
+        #all_contrib = pd.DataFrame()
+        #for mlid in ml_names.CandidateMaplightID:
+        #    response = client.invoke(
+        #        FunctionName='reps-api-{}-worker'.format(STAGE),
+        #        InvocationType='RequestResponse',
+        #        Payload=json.dumps({"mlid": mlid, "cycle": cycle})
+        #    )
+        #    contrib = pd.read_json(json.loads(response['Payload'].read().decode())['body'], orient='records')
+        #    all_contrib = pd.concat([all_contrib, contrib], ignore_index=True)
 
-        #all_contrib = pd.concat([get_all_contributions(mlid, cycle) for mlid in ml_names.CandidateMaplightID], ignore_index=True)
+        all_contrib = pd.concat([get_all_contributions(mlid, cycle) for mlid in ml_names.CandidateMaplightID], ignore_index=True)
         if all_contrib.shape[0] == 0:
             raise Exception(400, 'No contributions found; double-check params', 'Error at maplight.get_all_contributions')
 
