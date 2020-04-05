@@ -8,6 +8,8 @@ plugins:
 
 custom:
   stage: ${opt:stage, self:provider.stage}
+  environment:
+    STAGE: ${self:custom.stage}
   pythonRequirements:
     layer:
       name: ${self:service}
@@ -126,7 +128,7 @@ functions:
                   "application/json": MainResponse
   state_reps:
     handler: state_reps.get
-    memorySize: 2048
+    memorySize: 3008
     timeout: 600
     environment:
       GOOGLE_API_KEY: ${env:GOOGLE_API_KEY}
@@ -188,3 +190,14 @@ functions:
                 statusCode: '500'
                 responseModels:
                   "application/json": MainResponse
+  worker:
+    handler: state_reps.worker
+    memorySize: 3008
+    timeout: 600
+    layers:
+      - {Ref: PythonRequirementsLambdaLayer}
+    events:
+      - http:
+          path: worker
+          method: post
+          cors: true

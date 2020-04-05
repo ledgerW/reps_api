@@ -1,4 +1,5 @@
 import os
+import time
 import requests
 import json
 import pandas as pd
@@ -10,6 +11,7 @@ def get_candidate_record(name, state):
     path = 'candidate_names'
 
     names = requests.get('{}/{}/{}'.format(MAPLIGHT_HOST, path, name))
+    time.sleep(0.1)
 
     if names.status_code != 200:
         raise Exception(names.status_code, json.loads(names.text)['error']['message'], 'Error at maplight.get_candidate_record')
@@ -37,6 +39,7 @@ def get_all_contributions(mlid, cycle):
         }
 
     csv_url = requests.get(DOWNLOAD_URL, params=data)
+    time.sleep(0.1)
 
     if csv_url.status_code != 200:
         raise Exception(csv_url.status_code, json.loads(csv_url.text)['error']['message'], 'Error at maplight.get_all_contributions')
