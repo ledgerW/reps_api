@@ -87,8 +87,9 @@ functions:
               -
                 name: cycle
                 description: >
-                  Election cycle to get (e.g. 2020)\n
-                  (one of 2008, 2010, 2012, 2014, 2016, 2018 2020)
+                  Election cycle to get (e.g. 2020)
+                  (one of 2008, 2010, 2012,2014, 2016, 2018 2020)
+                  Default: 2020
                 required: false
                 schema:
                   type: string
@@ -97,8 +98,9 @@ functions:
               -
                 name: groupby
                 description: >
-                  Group by one or more of CandidateName, CandidateParty, CandidateOffice\n
+                  Group by one or more of CandidateName, CandidateParty, CandidateOffice
                   (2 or more as CandidateParty|CandidateOffice, etc...)
+                  Default: CandidateName
                 required: false
                 schema:
                   default: CandidateName
@@ -135,7 +137,7 @@ functions:
           path: /state_reps
           method: get
           documentation:
-            summary: Gets campaign contribution info for federal representatives
+            summary: Gets campaign contribution info for federal representatives by state
             tags:
               - Reps API
             description: >
@@ -149,8 +151,9 @@ functions:
               -
                 name: cycle
                 description: >
-                  Election cycle to get (e.g. 2020)\n
-                  (one of 2008, 2010, 2012, 2014, 2016, 2018 2020)
+                  Election cycle to get (e.g. 2020)
+                  (one of 2008, 2010, 2012,2014, 2016, 2018 2020)
+                  Default: 2020
                 required: false
                 schema:
                   type: string
@@ -159,8 +162,9 @@ functions:
               -
                 name: groupby
                 description: >
-                  "Group by one or more of CandidateName, CandidateParty, CandidateOffice\n
-                  (2 or more as CandidateParty|CandidateOffice, etc...)"
+                  Group by one or more of CandidateName, CandidateParty, CandidateOffice
+                  (2 or more as CandidateParty|CandidateOffice, etc...)
+                  Default: CandidateName
                 required: false
                 schema:
                   default: CandidateName

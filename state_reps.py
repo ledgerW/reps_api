@@ -45,6 +45,8 @@ def get(event, context):
 
         # pulling ALL contributions for each rep from Maplight API
         all_contrib = pd.concat([get_all_contributions(mlid, cycle) for mlid in ml_names.CandidateMaplightID], ignore_index=True)
+        if all_contrib.shape[0] == 0:
+            raise Exception(400, 'No contributions found; double-check params', 'Error at maplight.get_all_contributions')
 
         # summarize
         summary = all_contrib\

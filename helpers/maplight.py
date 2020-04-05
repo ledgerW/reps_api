@@ -41,7 +41,6 @@ def get_all_contributions(mlid, cycle):
     if csv_url.status_code != 200:
         raise Exception(csv_url.status_code, json.loads(csv_url.text)['error']['message'], 'Error at maplight.get_all_contributions')
 
-    if pd.read_csv(csv_url.text).shape[0] == 0:
-        raise Exception(400, 'No contributions found; double-check params', 'Error at maplight.get_all_contributions')
+    contribs = pd.read_csv(csv_url.text)
 
-    return pd.read_csv(csv_url.text)
+    return contribs

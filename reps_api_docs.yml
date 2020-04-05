@@ -3,7 +3,7 @@ swagger: "2.0"
 info:
   description: "A serverless api that returns a short summary of campaign contributions\
     \ to elected representatives in the House and Senate."
-  version: "2020-04-04T22:28:57Z"
+  version: "2020-04-04T23:33:25Z"
   title: "dev-reps-api"
   contact:
     name: "Ledger"
@@ -11,15 +11,15 @@ info:
 host: "jl6ecraie7.execute-api.us-east-1.amazonaws.com"
 basePath: "/dev"
 tags:
-- name: "Google Civic API"
-  description: "Uses Google's Civic API"
-- name: "Maplight API"
-  description: "Uses Maplight API"
+- name: "Reps API"
+  description: "Using Google Civic and Maplight"
 schemes:
 - "https"
 paths:
   /my_reps:
     get:
+      tags:
+      - "Reps API"
       summary: "Gets campaign contribution info about your representatives"
       description: "Retrieve campaign contribution data about your House and Senate\
         \ representatives based on your address.\n"
@@ -43,12 +43,14 @@ paths:
         type: "string"
       - name: "groupby"
         in: "query"
-        description: "Group by one or more of CandidateName, CandidateParty, CandidateOffice\n"
+        description: "Group by one or more of CandidateName, CandidateParty, CandidateOffice\\\
+          n (2 or more as CandidateParty|CandidateOffice, etc...)\n"
         required: false
         type: "string"
       - name: "cycle"
         in: "query"
-        description: "Election cycle to get (e.g. 2020)"
+        description: "Election cycle to get (e.g. 2020)\\n (one of 2008, 2010, 2012,\
+          \ 2014, 2016, 2018 2020)\n"
         required: false
         type: "string"
       responses:
@@ -66,7 +68,44 @@ paths:
             $ref: "#/definitions/MainResponse"
   /state_reps:
     get:
-      responses: {}
+      tags:
+      - "Reps API"
+      summary: "Gets campaign contribution info for federal representatives"
+      description: "Retrieve campaign contribution data for House and Senate representatives\
+        \ for a given state.\n"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "state"
+        in: "query"
+        description: "A state abbreviation (e.g. MD, NY, etc..)"
+        required: true
+        type: "string"
+      - name: "groupby"
+        in: "query"
+        description: "\"Group by one or more of CandidateName, CandidateParty, CandidateOffice\\\
+          n (2 or more as CandidateParty|CandidateOffice, etc...)\"\n"
+        required: false
+        type: "string"
+      - name: "cycle"
+        in: "query"
+        description: "Election cycle to get (e.g. 2020)\\n (one of 2008, 2010, 2012,\
+          \ 2014, 2016, 2018 2020)\n"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/MainResponse"
+        400:
+          description: "400 response"
+          schema:
+            $ref: "#/definitions/MainResponse"
+        500:
+          description: "500 response"
+          schema:
+            $ref: "#/definitions/MainResponse"
 definitions:
   MainResponse:
     type: "object"
