@@ -3,7 +3,7 @@ swagger: "2.0"
 info:
   description: "A serverless api that returns a short summary of campaign contributions\
     \ to elected representatives in the House and Senate."
-  version: "2020-04-04T23:33:25Z"
+  version: "2020-04-05T01:17:29Z"
   title: "dev-reps-api"
   contact:
     name: "Ledger"
@@ -43,14 +43,14 @@ paths:
         type: "string"
       - name: "groupby"
         in: "query"
-        description: "Group by one or more of CandidateName, CandidateParty, CandidateOffice\\\
-          n (2 or more as CandidateParty|CandidateOffice, etc...)\n"
+        description: "Group by one or more of CandidateName, CandidateParty, CandidateOffice\
+          \ (2 or more as CandidateParty|CandidateOffice, etc...) Default: CandidateName\n"
         required: false
         type: "string"
       - name: "cycle"
         in: "query"
-        description: "Election cycle to get (e.g. 2020)\\n (one of 2008, 2010, 2012,\
-          \ 2014, 2016, 2018 2020)\n"
+        description: "Election cycle to get (e.g. 2020) (one of 2008, 2010, 2012,2014,\
+          \ 2016, 2018 2020) Default: 2020\n"
         required: false
         type: "string"
       responses:
@@ -70,7 +70,7 @@ paths:
     get:
       tags:
       - "Reps API"
-      summary: "Gets campaign contribution info for federal representatives"
+      summary: "Gets campaign contribution info for federal representatives by state"
       description: "Retrieve campaign contribution data for House and Senate representatives\
         \ for a given state.\n"
       produces:
@@ -83,14 +83,14 @@ paths:
         type: "string"
       - name: "groupby"
         in: "query"
-        description: "\"Group by one or more of CandidateName, CandidateParty, CandidateOffice\\\
-          n (2 or more as CandidateParty|CandidateOffice, etc...)\"\n"
+        description: "Group by one or more of CandidateName, CandidateParty, CandidateOffice\
+          \ (2 or more as CandidateParty|CandidateOffice, etc...) Default: CandidateName\n"
         required: false
         type: "string"
       - name: "cycle"
         in: "query"
-        description: "Election cycle to get (e.g. 2020)\\n (one of 2008, 2010, 2012,\
-          \ 2014, 2016, 2018 2020)\n"
+        description: "Election cycle to get (e.g. 2020) (one of 2008, 2010, 2012,2014,\
+          \ 2016, 2018 2020) Default: 2020\n"
         required: false
         type: "string"
       responses:

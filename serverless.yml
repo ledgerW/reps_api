@@ -126,8 +126,8 @@ functions:
                   "application/json": MainResponse
   state_reps:
     handler: state_reps.get
-    memorySize: 1024
-    timeout: 60
+    memorySize: 2048
+    timeout: 300
     environment:
       GOOGLE_API_KEY: ${env:GOOGLE_API_KEY}
     layers:
